@@ -1,1 +1,1 @@
-# sentiment_analysis-stck_ml
+# sentiment_analysis-stock_ml
