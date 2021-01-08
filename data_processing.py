@@ -59,3 +59,5 @@ print(stock_df.tail(10))
 # %% check number of unique values in sentiment column
 print(stock_df.Sentiment.value_counts())
 sns.countplot(stock_df['Sentiment'])
+
+# %% Data Cleaning
