@@ -1,5 +1,9 @@
 # %% imports
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import string
+import nltk
 
 # %% read data
 df1 = pd.read_csv('stock_sentiment.csv')
@@ -51,3 +55,7 @@ print(stock_df[stock_df.isna().any(axis=1)])
 stock_df.dropna(inplace=True)
 stock_df.reset_index(drop=True, inplace=True)
 print(stock_df.tail(10))
+
+# %% check number of unique values in sentiment column
+print(stock_df.Sentiment.value_counts())
+sns.countplot(stock_df['Sentiment'])
