@@ -7,6 +7,11 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten, Embedding, Input, LSTM, Conv1D, MaxPool1D, Bidirectional, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.keras.utils import to_categorical
+import numpy as np
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # %% import dataset
 clean_stock_df = pd.read_csv('cleaned_text.csv')
@@ -62,3 +67,47 @@ y_test_cat = to_categorical(y_test, 3)
 print(y_train_cat.shape, y_test_cat.shape)
 print(y_train_cat[20:28])
 print(y_train[20:28])
+
+# %% Build Deep Neural Network
+# Sequential model
+model = Sequential()
+
+# embedding layer
+model.add(Embedding(total_words, output_dim=512))
+# Bi-Directional RNN and LSTM
+model.add(LSTM(256))
+
+# Dense layers
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.3))
+model.add(Dense(3, activation='softmax'))
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
+model.summary()
+
+# %%
+# train model
+model.fit(padded_train, y_train_cat, batch_size=32, validation_split=0.2, epochs=2)
+
+# %% Assess Trained Model
+pred = model.predict(padded_test)
+print(pred[:10])
+
+# %% get predictions
+y_values = [0, 1, -1]
+prediction = []
+for i in pred:
+    prediction.append(y_values[np.argmax(i)])
+
+# list containing original values
+original = []
+for i in y_test_cat:
+    original.append(y_values[np.argmax(i)])
+
+accuracy = accuracy_score(original, prediction)
+print(accuracy)
+
+# %% Plot the confusion matrix
+cm = confusion_matrix(original, prediction)
+sns.heatmap(cm, annot=True, fmt="d", xticklabels=y_values, yticklabels=y_values)
+plt.show()
