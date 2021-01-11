@@ -24,7 +24,7 @@ print(df1.describe())
 print(''.ljust(70, '*'))
 print(df2.describe())
 
-#%% combine dataframes
+# %% combine dataframes
 # assign same column names
 df2.columns = df1.columns
 
@@ -60,4 +60,18 @@ print(stock_df.tail(10))
 print(stock_df.Sentiment.value_counts())
 sns.countplot(stock_df['Sentiment'])
 
-# %% Data Cleaning
+# %% Data Cleaning--Remove Punctuations
+print(string.punctuation)
+
+
+# function to remove punctuations
+def remove_punc(text):
+    text_punc_removed = [char for char in text if char not in string.punctuation]
+    text_punc_removed_join = ''.join(text_punc_removed)
+
+    return text_punc_removed_join
+
+
+# remove punctuations from our dataset
+stock_df['Text Without Punctuation'] = stock_df['Text'].apply(remove_punc)
+print(stock_df.head(10))
