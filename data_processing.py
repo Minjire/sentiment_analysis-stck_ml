@@ -7,8 +7,11 @@ import nltk
 from nltk.corpus import stopwords
 import gensim
 from tabulate import tabulate
+from wordcloud import WordCloud
+import plotly.express as px
 
 # pdtabulate = lambda df: tabulate(df, headers='keys')
+
 pdtabulate = lambda df: tabulate(df, headers='keys', tablefmt='psql')
 
 # %% read data
@@ -65,6 +68,7 @@ print(stock_df.tail(10))
 # %% check number of unique values in sentiment column
 print(stock_df.Sentiment.value_counts())
 sns.countplot(stock_df['Sentiment'])
+plt.show()
 
 # %% Data Cleaning--Remove Punctuations
 print(string.punctuation)
@@ -107,5 +111,47 @@ def preprocess(text):
 # apply pre-processing to the text column
 stock_df['Text Without Punc & Stopwords'] = stock_df['Text Without Punctuation'].apply(preprocess)
 # join the words into a string
-stock_df['Text Without Punc & Stopwords Joined'] = stock_df['Text Without Punc & Stopwords'].apply(lambda x: " ".join(x))
+stock_df['Text Without Punc & Stopwords Joined'] = stock_df['Text Without Punc & Stopwords'].apply(
+    lambda x: " ".join(x))
 print(pdtabulate(stock_df.head(10)))
+
+# %% Visualize in a WordCloud
+# plot the word cloud for text with positive sentiment
+plt.figure(figsize=(20, 20))
+wc = WordCloud(max_words=1000, width=1600, height=800).generate(
+    " ".join(stock_df[stock_df['Sentiment'] == 1]['Text Without Punc & Stopwords Joined']))
+plt.imshow(wc, interpolation='bilinear')
+plt.xticks([])
+plt.yticks([])
+plt.show()
+
+# word cloud for negative sentiment
+plt.figure(figsize=(20, 20))
+wc = WordCloud(max_words=1000, width=1600, height=800).generate(
+    " ".join(stock_df[stock_df['Sentiment'] == -1]['Text Without Punc & Stopwords Joined']))
+plt.imshow(wc, interpolation='bilinear')
+plt.xticks([])
+plt.yticks([])
+plt.show()
+
+# %% investigate on maximum length of data in the document
+# This will be later used when word embeddings are generated
+nltk.download('punkt')
+# drop row with excessively long text compared to others
+# store indices of excessively long text compared to others
+long_texts = []
+
+maxlen = -1
+for doc in stock_df['Text Without Punc & Stopwords Joined']:
+    tokens = nltk.word_tokenize(doc)
+    if (maxlen < len(tokens) and len(tokens) < 50):
+        maxlen = len(tokens)
+    if len(tokens) > 50:
+        long_texts.append(doc)
+print("The maximum number of words in any document is:", maxlen)
+
+stock_df = stock_df[~stock_df['Text Without Punc & Stopwords Joined'].isin(long_texts)]
+tweets_length = [len(nltk.word_tokenize(x)) for x in stock_df['Text Without Punc & Stopwords Joined']]
+# Plot the distribution for the number of words in a text
+fig = px.histogram(x=tweets_length, nbins=50, labels={"x": "Text Length"}, title="Histogram of Length of Texts")
+fig.show()
