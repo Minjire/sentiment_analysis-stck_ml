@@ -155,3 +155,6 @@ tweets_length = [len(nltk.word_tokenize(x)) for x in stock_df['Text Without Punc
 # Plot the distribution for the number of words in a text
 fig = px.histogram(x=tweets_length, nbins=50, labels={"x": "Text Length"}, title="Histogram of Length of Texts")
 fig.show()
+
+# %% save dataframe for model training
+stock_df.to_csv('cleaned_text.csv', index=False)
