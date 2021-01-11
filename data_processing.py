@@ -15,8 +15,8 @@ import plotly.express as px
 pdtabulate = lambda df: tabulate(df, headers='keys', tablefmt='psql')
 
 # %% read data
-df1 = pd.read_csv('stock_sentiment.csv')
-df2 = pd.read_csv('tweet_sentiment.csv')
+df1 = pd.read_csv('data/raw/stock_sentiment.csv')
+df2 = pd.read_csv('data/raw/tweet_sentiment.csv')
 
 print(df1.head())
 # print horizontal asterisks
@@ -68,6 +68,8 @@ print(stock_df.tail(10))
 # %% check number of unique values in sentiment column
 print(stock_df.Sentiment.value_counts())
 sns.countplot(stock_df['Sentiment'])
+plt.title('Sentiment Frequencies')
+plt.savefig("figures/sentiment frequencies.png", bbox_inches='tight')
 plt.show()
 
 # %% Data Cleaning--Remove Punctuations
@@ -113,7 +115,7 @@ stock_df['Text Without Punc & Stopwords'] = stock_df['Text Without Punctuation']
 # join the words into a string
 stock_df['Text Without Punc & Stopwords Joined'] = stock_df['Text Without Punc & Stopwords'].apply(
     lambda x: " ".join(x))
-print(pdtabulate(stock_df.head(10)))
+print(stock_df.head(10))
 
 # %% Visualize in a WordCloud
 # plot the word cloud for text with positive sentiment
@@ -123,6 +125,7 @@ wc = WordCloud(max_words=1000, width=1600, height=800).generate(
 plt.imshow(wc, interpolation='bilinear')
 plt.xticks([])
 plt.yticks([])
+plt.savefig("figures/positive sentiment word cloud.png", bbox_inches='tight')
 plt.show()
 
 # word cloud for negative sentiment
@@ -132,6 +135,7 @@ wc = WordCloud(max_words=1000, width=1600, height=800).generate(
 plt.imshow(wc, interpolation='bilinear')
 plt.xticks([])
 plt.yticks([])
+plt.savefig("figures/negative sentiment word cloud.png", bbox_inches='tight')
 plt.show()
 
 # %% investigate on maximum length of data in the document
@@ -154,7 +158,8 @@ stock_df = stock_df[~stock_df['Text Without Punc & Stopwords Joined'].isin(long_
 tweets_length = [len(nltk.word_tokenize(x)) for x in stock_df['Text Without Punc & Stopwords Joined']]
 # Plot the distribution for the number of words in a text
 fig = px.histogram(x=tweets_length, nbins=50, labels={"x": "Text Length"}, title="Histogram of Length of Texts")
+fig.write_html("figures/texts lengths distribution.html")
 fig.show()
 
 # %% save dataframe for model training
-stock_df.to_csv('cleaned_text.csv', index=False)
+stock_df.to_csv('data/processed/cleaned_text.csv', index=False)

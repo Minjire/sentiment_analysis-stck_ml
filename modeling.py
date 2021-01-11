@@ -14,9 +14,15 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # %% import dataset
-clean_stock_df = pd.read_csv('cleaned_text.csv')
+clean_stock_df = pd.read_csv('data/processed/cleaned_text.csv')
 pd.options.display.max_columns = None
 print(clean_stock_df.head(10))
+
+# %%
+print(clean_stock_df.isna().sum())
+# drop null rows and reset index
+clean_stock_df.dropna(inplace=True)
+clean_stock_df.reset_index(drop=True, inplace=True)
 
 # modify column with list values for proper representation
 clean_stock_df['Text Without Punc & Stopwords'] = clean_stock_df['Text Without Punc & Stopwords'].apply(eval)
@@ -113,5 +119,8 @@ print(report)
 cm = confusion_matrix(original, prediction)
 print(cm)
 sns.heatmap(cm, annot=True, fmt="d", xticklabels=y_values, yticklabels=y_values)
-plt.savefig("Confusion matrix.png", bbox_inches='tight')
+plt.savefig("figures/Confusion matrix.png", bbox_inches='tight')
 plt.show()
+
+# %% reset pandas column display
+pd.options.display.max_columns = 0
