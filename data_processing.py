@@ -4,6 +4,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import string
 import nltk
+from nltk.corpus import stopwords
+import gensim
+from tabulate import tabulate
+
+# pdtabulate = lambda df: tabulate(df, headers='keys')
+pdtabulate = lambda df: tabulate(df, headers='keys', tablefmt='psql')
 
 # %% read data
 df1 = pd.read_csv('stock_sentiment.csv')
@@ -75,3 +81,31 @@ def remove_punc(text):
 # remove punctuations from our dataset
 stock_df['Text Without Punctuation'] = stock_df['Text'].apply(remove_punc)
 print(stock_df.head(10))
+
+# %% Data Cleaning--Remove Punctuations
+# download stopwords
+nltk.download('stopwords')
+
+stop_words = stopwords.words('english')
+# add stop words depending on the dataset
+stop_words.extend(
+    ['from', 'subject', 're', 'edu', 'use', 'will', 'aap', 'co', 'day', 'user', 'stock', 'today', 'week', 'year',
+     'https'])
+print(stop_words)
+
+
+# remove stopwords and short words (< 2 characters)
+def preprocess(text):
+    result = []
+    for token in gensim.utils.simple_preprocess(text):
+        if token not in stop_words and len(token) >= 3:
+            result.append(token)
+
+    return result
+
+
+# apply pre-processing to the text column
+stock_df['Text Without Punc & Stopwords'] = stock_df['Text Without Punctuation'].apply(preprocess)
+# join the words into a string
+stock_df['Text Without Punc & Stopwords Joined'] = stock_df['Text Without Punc & Stopwords'].apply(lambda x: " ".join(x))
+print(pdtabulate(stock_df.head(10)))
