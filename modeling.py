@@ -9,7 +9,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.utils import to_categorical
 import numpy as np
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -107,7 +107,11 @@ for i in y_test_cat:
 accuracy = accuracy_score(original, prediction)
 print(accuracy)
 
-# %% Plot the confusion matrix
+# %% Plot the confusion matrix, classification report
+report = classification_report(original, prediction)
+print(report)
 cm = confusion_matrix(original, prediction)
+print(cm)
 sns.heatmap(cm, annot=True, fmt="d", xticklabels=y_values, yticklabels=y_values)
+plt.savefig("Confusion matrix.png", bbox_inches='tight')
 plt.show()
