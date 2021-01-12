@@ -93,7 +93,12 @@ model.summary()
 
 # %%
 # train model
-model.fit(padded_train, y_train_cat, batch_size=32, validation_split=0.2, epochs=2)
+# 8 epochs found to be optimal
+EPOCHS = 5
+model.fit(padded_train, y_train_cat, batch_size=32, validation_split=0.2, epochs=EPOCHS)
+
+# %% save model
+model.save("models/" + str(EPOCHS) + "_epochs_model.h5")
 
 # %% Assess Trained Model
 pred = model.predict(padded_test)
@@ -119,7 +124,7 @@ print(report)
 cm = confusion_matrix(original, prediction)
 print(cm)
 sns.heatmap(cm, annot=True, fmt="d", xticklabels=y_values, yticklabels=y_values)
-plt.savefig("figures/Confusion matrix.png", bbox_inches='tight')
+plt.savefig("figures/" + str(EPOCHS) + "_epochs Confusion matrix.png", bbox_inches='tight')
 plt.show()
 
 # %% reset pandas column display
