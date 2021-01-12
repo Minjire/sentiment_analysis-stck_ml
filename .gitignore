@@ -189,7 +189,7 @@ env.bak/
 venv.bak/
 
 # Folders
-models/
+
 
 # Spyder project settings
 .spyderproject
