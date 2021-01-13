@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
 import matplotlib.pyplot as plt
+import sys
 
 # %% import dataset
 clean_stock_df = pd.read_csv('data/processed/cleaned_text.csv')
@@ -94,7 +95,7 @@ model.summary()
 # %%
 # train model
 # 8 epochs found to be optimal
-EPOCHS = 5
+EPOCHS = 8
 model.fit(padded_train, y_train_cat, batch_size=32, validation_split=0.2, epochs=EPOCHS)
 
 # %% save model
@@ -120,12 +121,23 @@ print(accuracy)
 
 # %% Plot the confusion matrix, classification report
 report = classification_report(original, prediction)
-print(report)
+print(f"Classification Report:\n{report}")
 cm = confusion_matrix(original, prediction)
-print(cm)
+print(f"Confusion Matrix:\n{cm}")
 sns.heatmap(cm, annot=True, fmt="d", xticklabels=y_values, yticklabels=y_values)
 plt.savefig("figures/" + str(EPOCHS) + "_epochs Confusion matrix.png", bbox_inches='tight')
 plt.show()
+
+# %% print results to text document
+original_stdout = sys.stdout
+with open("reports/Model_Reports.txt", 'a') as f:
+    sys.stdout = f
+    print("***** " + str(EPOCHS) + " EPOCHS ******\n")
+    print("Confusion Matrix:")
+    print(cm)
+    print("Classification Report:")
+    print(report)
+    sys.stdout = original_stdout
 
 # %% reset pandas column display
 pd.options.display.max_columns = 0
