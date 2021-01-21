@@ -133,6 +133,8 @@ original_stdout = sys.stdout
 with open("reports/Model_Reports.txt", 'a') as f:
     sys.stdout = f
     print("***** " + str(EPOCHS) + " EPOCHS ******\n")
+    print("Test Accuracy:")
+    print(accuracy)
     print("Confusion Matrix:")
     print(cm)
     print("Classification Report:")

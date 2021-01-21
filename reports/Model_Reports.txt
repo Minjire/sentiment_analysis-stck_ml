@@ -1,17 +1,76 @@
 ***** 5 EPOCHS ******
 
+Test Accuracy:
+0.8538371411833626
 Confusion Matrix:
-[[ 225  112  108]
- [  17 1688   77]
- [  23   58 1106]]
+[[ 206  168  102]
+ [   7 1619   67]
+ [  18  137 1090]]
 Classification Report:
               precision    recall  f1-score   support
 
-          -1       0.85      0.51      0.63       445
-           0       0.91      0.95      0.93      1782
-           1       0.86      0.93      0.89      1187
+          -1       0.89      0.43      0.58       476
+           0       0.84      0.96      0.90      1693
+           1       0.87      0.88      0.87      1245
 
-    accuracy                           0.88      3414
-   macro avg       0.87      0.79      0.82      3414
-weighted avg       0.88      0.88      0.88      3414
+    accuracy                           0.85      3414
+   macro avg       0.87      0.75      0.78      3414
+weighted avg       0.86      0.85      0.84      3414
+
+***** 8 EPOCHS ******
+
+Test Accuracy:
+0.8626244874048038
+Confusion Matrix:
+[[ 236  136  104]
+ [  32 1590   71]
+ [  40   86 1119]]
+Classification Report:
+              precision    recall  f1-score   support
+
+          -1       0.77      0.50      0.60       476
+           0       0.88      0.94      0.91      1693
+           1       0.86      0.90      0.88      1245
+
+    accuracy                           0.86      3414
+   macro avg       0.84      0.78      0.80      3414
+weighted avg       0.86      0.86      0.86      3414
+
+***** 10 EPOCHS ******
+
+Test Accuracy:
+0.8596953719976567
+Confusion Matrix:
+[[ 292   81  103]
+ [  30 1505  158]
+ [  63   44 1138]]
+Classification Report:
+              precision    recall  f1-score   support
+
+          -1       0.76      0.61      0.68       476
+           0       0.92      0.89      0.91      1693
+           1       0.81      0.91      0.86      1245
+
+    accuracy                           0.86      3414
+   macro avg       0.83      0.81      0.81      3414
+weighted avg       0.86      0.86      0.86      3414
+
+***** 9 EPOCHS ******
+
+Test Accuracy:
+0.8456356180433509
+Confusion Matrix:
+[[ 175  152  149]
+ [  20 1556  117]
+ [  32   57 1156]]
+Classification Report:
+              precision    recall  f1-score   support
+
+          -1       0.77      0.37      0.50       476
+           0       0.88      0.92      0.90      1693
+           1       0.81      0.93      0.87      1245
+
+    accuracy                           0.85      3414
+   macro avg       0.82      0.74      0.75      3414
+weighted avg       0.84      0.85      0.83      3414
 
