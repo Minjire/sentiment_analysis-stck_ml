@@ -1,11 +1,10 @@
 # %% imports
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.preprocessing.text import one_hot, Tokenizer
+from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Embedding, Input, LSTM, Conv1D, MaxPool1D, Bidirectional, Dropout
-from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Embedding, LSTM, Dropout
 from tensorflow.keras.utils import to_categorical
 import numpy as np
 from sklearn.metrics import accuracy_score
