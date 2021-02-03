@@ -15,8 +15,8 @@ import plotly.express as px
 pdtabulate = lambda df: tabulate(df, headers='keys', tablefmt='psql')
 
 # %% read data
-df1 = pd.read_csv('data/raw/stock_sentiment.csv')
-df2 = pd.read_csv('data/raw/tweet_sentiment.csv')
+df1 = pd.read_csv('data/raw/sentiment/stock_sentiment.csv')
+df2 = pd.read_csv('data/raw/sentiment/tweet_sentiment.csv')
 
 print(df1.head())
 # print horizontal asterisks
@@ -162,4 +162,4 @@ fig.write_html("figures/texts lengths distribution.html")
 fig.show()
 
 # %% save dataframe for model training
-stock_df.to_csv('data/processed/cleaned_text.csv', index=False)
+stock_df.to_csv('data/processed/sentiment/cleaned_text.csv', index=False)

@@ -11,7 +11,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.utils import to_categorical
 
 # %% import dataset
-clean_stock_df = pd.read_csv('data/processed/cleaned_text.csv')
+clean_stock_df = pd.read_csv('data/processed/sentiment/cleaned_text.csv')
 pd.options.display.max_columns = None
 print(clean_stock_df.head(10))
 
@@ -88,4 +88,4 @@ EPOCHS = 8
 model.fit(padded_train, y_cat, batch_size=32, validation_split=0.2, epochs=EPOCHS)
 
 # %% save model
-model.save("models/final_model.h5")
+model.save("final_model/final_model.h5")

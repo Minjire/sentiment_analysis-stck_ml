@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import sys
 
 # %% import dataset
-clean_stock_df = pd.read_csv('data/processed/cleaned_text.csv')
+clean_stock_df = pd.read_csv('data/processed/sentiment/cleaned_text.csv')
 pd.options.display.max_columns = None
 print(clean_stock_df.head(10))
 
