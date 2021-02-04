@@ -9,6 +9,8 @@ import gensim
 from tabulate import tabulate
 from wordcloud import WordCloud
 import plotly.express as px
+from src.sentiment.remove_punctuation import remove_punc
+from src.sentiment.preprocess import preprocess
 
 # pdtabulate = lambda df: tabulate(df, headers='keys')
 
@@ -73,43 +75,11 @@ plt.savefig("figures/sentiment frequencies.png", bbox_inches='tight')
 plt.show()
 
 # %% Data Cleaning--Remove Punctuations
-print(string.punctuation)
-
-
-# function to remove punctuations
-def remove_punc(text):
-    text_punc_removed = [char for char in text if char not in string.punctuation]
-    text_punc_removed_join = ''.join(text_punc_removed)
-
-    return text_punc_removed_join
-
-
 # remove punctuations from our dataset
 stock_df['Text Without Punctuation'] = stock_df['Text'].apply(remove_punc)
 print(stock_df.head(10))
 
-# %% Data Cleaning--Remove Punctuations
-# download stopwords
-nltk.download('stopwords')
-
-stop_words = stopwords.words('english')
-# add stop words depending on the dataset
-stop_words.extend(
-    ['from', 'subject', 're', 'edu', 'use', 'will', 'aap', 'co', 'day', 'user', 'stock', 'today', 'week', 'year',
-     'https'])
-print(stop_words)
-
-
-# remove stopwords and short words (< 2 characters)
-def preprocess(text):
-    result = []
-    for token in gensim.utils.simple_preprocess(text):
-        if token not in stop_words and len(token) >= 3:
-            result.append(token)
-
-    return result
-
-
+# %% Data Cleaning--Remove Stopwords
 # apply pre-processing to the text column
 stock_df['Text Without Punc & Stopwords'] = stock_df['Text Without Punctuation'].apply(preprocess)
 # join the words into a string

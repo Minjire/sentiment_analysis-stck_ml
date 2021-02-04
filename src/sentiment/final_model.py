@@ -89,3 +89,6 @@ model.fit(padded_train, y_cat, batch_size=32, validation_split=0.2, epochs=EPOCH
 
 # %% save model
 model.save("final_model/final_model.h5")
+
+# %% reset pandas column display
+pd.options.display.max_columns = 0
