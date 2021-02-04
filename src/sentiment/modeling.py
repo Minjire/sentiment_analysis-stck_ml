@@ -12,7 +12,6 @@ from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
 import matplotlib.pyplot as plt
 import sys
-import pickle
 
 # %% import dataset
 clean_stock_df = pd.read_csv('data/processed/sentiment/cleaned_text.csv')
@@ -49,10 +48,6 @@ print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 # %%Create a tokenizer to tokenize the words and create sequences of tokenized words
 tokenizer = Tokenizer(num_words=total_words)
 tokenizer.fit_on_texts(X_train)
-
-# saving tokenizer for use in new test data
-with open('src/sentiment/tokenizer.pickle', 'wb') as handle:
-    pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 # Training data
 train_sequences = tokenizer.texts_to_sequences(X_train)

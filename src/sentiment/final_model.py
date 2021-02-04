@@ -9,6 +9,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, LSTM, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.keras.utils import to_categorical
+import pickle
 
 # %% import dataset
 clean_stock_df = pd.read_csv('data/processed/sentiment/cleaned_text.csv')
@@ -44,6 +45,10 @@ print(X.shape, y.shape)
 # %%Create a tokenizer to tokenize the words and create sequences of tokenized words
 tokenizer = Tokenizer(num_words=total_words)
 tokenizer.fit_on_texts(X)
+
+# saving tokenizer for use in new test data
+with open('src/sentiment/tokenizer.pickle', 'wb') as handle:
+    pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 # Training data
 train_sequences = tokenizer.texts_to_sequences(X)

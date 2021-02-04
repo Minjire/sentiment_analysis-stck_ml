@@ -29,5 +29,13 @@ with open('src/sentiment/tokenizer.pickle', 'rb') as handle:
 
 model = keras.models.load_model('final_model/final_model.h5')
 
+# %% Testing data
+
+
+# tokenize and pad data
+#
+
+# test_sequences = tokenizer.texts_to_sequences(X_test)
+
 # %% reset pandas column display
 pd.options.display.max_columns = 0
