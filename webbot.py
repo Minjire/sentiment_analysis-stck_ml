@@ -44,10 +44,10 @@ for company in companies:
     articles = container.find_elements_by_tag_name('article')
     date = articles[0].find_element_by_class_name('jeg_meta_date').text
 
-    if 'JANUARY 30, 2021' == date:
+    if today == date:
         header = articles[0].find_element_by_class_name('jeg_post_title').text
         updated_data.append([header, date])
-        path = 'data/raw/test.csv'
+        path = 'data/raw/' + company + '.csv'
         with open(path, 'a') as f_object:
             writer_object = writer(f_object)
             writer_object.writerow(updated_data)
