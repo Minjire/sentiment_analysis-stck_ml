@@ -4,6 +4,7 @@ import pandas as pd
 from src.sentiment.remove_punctuation import remove_punc
 from src.sentiment.preprocess import preprocess
 from tensorflow import keras
+import pickle
 
 # %% read data for specific day(today)
 safaricom_df = pd.read_csv('data/raw/scraper/safaricom.csv')
@@ -22,7 +23,10 @@ safaricom_df['Text Without Punc & Stopwords Joined'] = safaricom_df['Text Withou
     lambda x: " ".join(x))
 print(safaricom_df.head(10))
 
-# %% load model
+# %% load tokenizer and model
+with open('src/sentiment/tokenizer.pickle', 'rb') as handle:
+    tokenizer = pickle.load(handle)
+
 model = keras.models.load_model('final_model/final_model.h5')
 
 # %% reset pandas column display
