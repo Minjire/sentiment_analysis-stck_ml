@@ -124,15 +124,17 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 ## Authors
 
+* **[Kelvin Minjire](https://github.com/Minjire)**
+  
+[![github follow](https://img.shields.io/github/followers/Minjire?label=Follow_on_GitHub)](https://github.com/Minjire)
+[![twitter follow](https://img.shields.io/twitter/follow/minjirekelvin?style=social)](https://twitter.com/minjirekelvin)
+
+
 * **[Spencer Ofwiti](https://github.com/SpencerOfwiti)**
     
 [![github follow](https://img.shields.io/github/followers/SpencerOfwiti?label=Follow_on_GitHub)](https://github.com/SpencerOfwiti)
 [![twitter follow](https://img.shields.io/twitter/follow/SpencerOfwiti?style=social)](https://twitter.com/SpencerOfwiti)
 
-* **[Kelvin Minjire](https://github.com/Minjire)**
-  
-[![github follow](https://img.shields.io/github/followers/Minjire?label=Follow_on_GitHub)](https://github.com/Minjire)
-[![twitter follow](https://img.shields.io/twitter/follow/minjirekelvin?style=social)](https://twitter.com/minjirekelvin)
 
 * **[Kevin Wachira](https://github.com/wachira-kevin)**
 
